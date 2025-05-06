@@ -1,0 +1,237 @@
+/* General Styles */
+body {
+    font-family: sans-serif;
+    background-color: #131722; /* Dark background */
+    color: #d1d4dc; /* Light grey text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #1e222d; /* Slightly lighter dark */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2a2e39;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2em;
+    /* Add logo specific styling if needed */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    margin-right: 15px;
+}
+
+.balance {
+    background-color: #00b894; /* Green background for balance */
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+    padding: 15px;
+    gap: 15px;
+}
+
+.chart-column {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e222d;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.control-column {
+    width: 300px; /* Fixed width for control panel */
+    flex-shrink: 0;
+    background-color: #1e222d;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Asset Selector */
+.asset-selector {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.current-asset {
+    background-color: #2a2e39;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Chart Area */
+#trading-chart {
+    flex-grow: 1;
+    background-color: #131722; /* Match body background or specific chart color */
+    border: 1px solid #2a2e39;
+    border-radius: 4px;
+    /* Chart library will control the content */
+    min-height: 400px; /* Ensure chart has some height */
+}
+
+/* Control Panel Elements */
+#config-panel, #status-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-group label {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #848e9c;
+}
+
+.control-group select,
+.control-group input[type="number"] {
+    background-color: #2a2e39;
+    border: 1px solid #474d57;
+    color: #d1d4dc;
+    padding: 8px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-start {
+    background-color: #00b894; /* Green */
+    color: #ffffff;
+}
+
+.btn-stop {
+    background-color: #e74c3c; /* Red */
+    color: #ffffff;
+}
+
+.current-pnl, .live-pnl {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.live-pnl {
+    color: #00b894; /* Green for profit, change dynamically */
+}
+
+/* Status Panel Specifics */
+#status-panel {
+    /* Styles specific to the status panel when active */
+}
+
+.alert-message {
+    background-color: #3a3e4a;
+    color: #f1c40f; /* Yellow warning text */
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    text-align: center;
+}
+
+.operation-info {
+    font-size: 0.9em;
+    color: #848e9c;
+    border-top: 1px solid #2a2e39;
+    border-bottom: 1px solid #2a2e39;
+    padding: 10px 0;
+}
+
+.info-item {
+    margin-bottom: 5px;
+}
+
+.info-item span {
+    color: #d1d4dc;
+}
+
+.progress-indicator {
+    /* Styles for the vertical progress line */
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #1e222d;
+    padding: 20px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 400px;
+    border: 1px solid #2a2e39;
+}
+
+.modal-header {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #00b894; /* Green icon/header */
+}
+
+.modal-body {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-footer {
+    text-align: center;
+}
+
+.modal-footer .btn {
+    background-color: #474d57;
+    color: #d1d4dc;
+}
+
+/* Add more specific styles as needed */
+

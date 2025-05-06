@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITAN.IA - Trading Bot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Placeholder for Charting Library CSS -->
+</head>
+<body>
+    <header>
+        <div class="logo">TITAN.IA</div>
+        <div class="user-info">
+            <span class="username">Cesar Bicca Pereira</span>
+            <span class="balance">R$ 0,00</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="chart-column">
+            <div class="asset-selector">
+                <div class="current-asset">
+                    <span class="asset-icon"></span> <!-- Placeholder for icon -->
+                    <span class="asset-name">BTC/USD</span> <!-- Default/Placeholder -->
+                    <span class="arrow-down">▼</span>
+                </div>
+                <!-- Dropdown list will be populated dynamically -->
+                <ul class="asset-dropdown" style="display: none;">
+                    <!-- Example item -->
+                    <li>
+                        <span class="asset-icon"></span>
+                        <span class="asset-name">BTC/USD</span>
+                        <span class="asset-payout">N/A</span>
+                        <span class="asset-status-icon"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="timeframe-selector" style="display: none;"> <!-- Hidden for now -->
+                <span>30s ▼</span>
+            </div>
+            <div id="trading-chart"></div> <!-- Chart will be rendered here -->
+        </div>
+
+        <div class="control-column">
+            <!-- Configuration Panel (Initial State) -->
+            <div id="config-panel">
+                <div class="control-group">
+                    <label for="ai-model">Inteligência Artificial</label>
+                    <select id="ai-model" name="ai-model">
+                        <option value="dqn">DQN (Implementado)</option>
+                        <option value="gpt4o" disabled>GPT 4o Mini (Ref)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="strategy">Estratégia</label>
+                    <select id="strategy" name="strategy">
+                        <option value="default">Padrão DQN</option>
+                        <option value="aggressive" disabled>Agressivo (Ref)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="entry-value">Valor de entrada</label>
+                    <input type="number" id="entry-value" name="entry-value" value="5.00" step="0.01">
+                </div>
+                <div class="control-group">
+                    <label for="target-value">Meta</label>
+                    <input type="number" id="target-value" name="target-value" value="10.00" step="0.01">
+                </div>
+                <div class="control-group">
+                    <label for="stop-loss">Stop Loss</label>
+                    <input type="number" id="stop-loss" name="stop-loss" value="200.00" step="0.01">
+                </div>
+                <button id="start-button" class="btn btn-start">▷ INICIAR</button>
+                <div class="auto-config" style="display: none;"> <!-- Hidden for now -->
+                    <input type="checkbox" id="auto-config-toggle">
+                    <label for="auto-config-toggle">CONFIGURAR AUTOMÁTICO</label>
+                </div>
+                <div class="current-pnl">R$ 0,00</div>
+            </div>
+
+            <!-- Status Panel (Visible during operation) -->
+            <div id="status-panel" style="display: none;">
+                <button id="stop-button" class="btn btn-stop">◎ PARAR</button>
+                <div class="alert-message">⚠ Não minimize ou deixe a tela desligar durante a operação!</div>
+                <div class="operation-info">
+                    <div class="info-item">Ativo: <span id="status-asset">N/A</span></div>
+                    <div class="info-item">Modelo IA: <span id="status-ai-model">N/A</span></div>
+                    <div class="info-item">Estratégia: <span id="status-strategy">N/A</span></div>
+                    <div class="info-item">Meta: R$ <span id="status-target">0.00</span> | Stop Loss: R$ <span id="status-stop-loss">0.00</span></div>
+                </div>
+                <div class="live-pnl">+ R$ 0,00 ▲</div>
+                <div class="progress-indicator">
+                    <!-- Visual indicator elements will be added via JS/CSS -->
+                    <div class="entry-point">Entrada realizada: R$ <span id="status-entry-value">0.00</span></div>
+                    <div class="exit-status">Aguardando saída: <span id="status-timer">00:00</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Results -->
+    <div id="result-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Icon placeholder -->
+                <span>📈</span>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">Mensagem do resultado aqui.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-ok-button" class="btn">✓ OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="/static/script.js"></script>
+    <!-- Placeholder for Charting Library JS -->
+</body>
+</html>
