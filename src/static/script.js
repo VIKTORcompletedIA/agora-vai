@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
             });
 
-            candlestickSeries = chart.addCandlestickSeries({
+            candlestickSeries = chart.addSeries({
+                type: "candlestick",
                 upColor: "#00b894", downColor: "#e74c3c",
                 borderDownColor: "#e74c3c", borderUpColor: "#00b894",
                 wickDownColor: "#e74c3c", wickUpColor: "#00b894",
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resizeObserver.observe(chartContainer);
 
             console.log("Trading chart initialized.");
+            if(chartContainer) chartContainer.innerHTML = "<p style='color: #d1d4dc;'>Carregando dados do gráfico...</p>"; // Loading message
             fetchChartData(); // Fetch data from backend
         } catch (error) {
             console.error("Error initializing chart:", error);
@@ -122,12 +124,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showModal(message, isError = false) {
-        if(modalMessage) modalMessage.textContent = message;
+        if(modalMessage) {
+            modalMessage.innerHTML = message.replace(/\n/g, "<br>"); // Replace newline chars with <br> for HTML
+        }
         if(resultModal) {
              resultModal.style.display = "flex";
-             // Optional: Change modal style for errors
              const modalHeader = resultModal.querySelector(".modal-header span");
-             if(modalHeader) modalHeader.textContent = isError ? "⚠️" : "📈";
+             const modalContent = resultModal.querySelector(".modal-content");
+             if(modalHeader) modalHeader.textContent = isError ? "⚠️ Erro" : "📈 Resultado";
+             if(modalContent) {
+                modalContent.className = isError ? "modal-content error" : "modal-content success";
+             } 
         }
     }
 
@@ -137,13 +144,43 @@ document.addEventListener("DOMContentLoaded", () => {
         startButton.disabled = true; // Disable button during request
         startButton.textContent = "Processando...";
 
-        // 1. Get parameters
+        // 1. Get and Validate parameters
         const aiModel = document.getElementById("ai-model")?.value;
         const strategy = document.getElementById("strategy")?.value;
-        const entryValue = document.getElementById("entry-value")?.value;
-        const targetValue = document.getElementById("target-value")?.value;
-        const stopLoss = document.getElementById("stop-loss")?.value;
+        const entryValueElement = document.getElementById("entry-value");
+        const targetValueElement = document.getElementById("target-value");
+        const stopLossElement = document.getElementById("stop-loss");
+
+        const entryValue = parseFloat(entryValueElement?.value);
+        const targetValue = parseFloat(targetValueElement?.value);
+        const stopLoss = parseFloat(stopLossElement?.value);
         const asset = document.querySelector(".asset-selector .asset-name")?.textContent || "BTC/USD";
+
+        // Basic Validations
+        if (isNaN(entryValue) || entryValue <= 0) {
+            showModal("Erro de Validação: O Valor de entrada deve ser um número positivo.", true);
+            startButton.disabled = false;
+            startButton.textContent = "▷ INICIAR";
+            return;
+        }
+        if (isNaN(targetValue) || targetValue <= 0) {
+            showModal("Erro de Validação: A Meta deve ser um número positivo.", true);
+            startButton.disabled = false;
+            startButton.textContent = "▷ INICIAR";
+            return;
+        }
+        if (isNaN(stopLoss) || stopLoss <= 0) {
+            showModal("Erro de Validação: O Stop Loss deve ser um número positivo.", true);
+            startButton.disabled = false;
+            startButton.textContent = "▷ INICIAR";
+            return;
+        }
+        if (targetValue <= entryValue) {
+            showModal("Erro de Validação: A Meta deve ser maior que o Valor de entrada.", true);
+            startButton.disabled = false;
+            startButton.textContent = "▷ INICIAR";
+            return;
+        }
 
         const params = { asset, aiModel, strategy, entryValue, targetValue, stopLoss };
         console.log("Parameters:", params);
